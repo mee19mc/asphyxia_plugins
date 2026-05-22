@@ -1,36 +1,45 @@
 SOUND VOLTEX
 ===
-**Plugin Version:** fork-7.0.1f
+**Plugin Version:** fork-7.1.0b
 - Check for newer plugin versions [here](https://github.com/22vv0/asphyxia_plugins/releases?q=kfc&expanded=true).
 
-**Supported game versions:** 
-- EXCEED GEAR (2025120900 final)
-- ∇ (2026030300)
+**Supported game versions:**
+- BOOTH (2013052900)
+- infinite infection (2014102200)
+- EXCEED GEAR (2025120900)
+- ∇ (20260421xx)
 
 **Required Asphyxia Core version** [1.50d](https://github.com/asphyxia-core/asphyxia-core.github.io/releases/tag/v1.50d) or above
 
 **Notes**
 - This is a fork of the [official Asphyxia SDVX plugin](https://github.com/asphyxia-core/plugins). If you have any concerns and issues with this fork of the plugin, please do **not** ask for support on the official Asphyxia channels, and do **not** contact the devs of the official plugin as they would not be able to help you because do not maintain this fork. Direct your concerns to the [GitHub issues page](https://github.com/22vv0/asphyxia_plugins/issues) of this repository.
 - **Please keep a copy/backup of your savedata directory** so you have something to come back to in case of a problem with your database.
-- Before using this plugin, run the [WebUI Asset Update](/plugin/sdvx@asphyxia/update%20webui%20assets). Do this every data and plugin update.
+- Before using this plugin, make sure you have your latest `music_db.xml` files uploaded and run the [WebUI Asset Update](/plugin/sdvx@asphyxia/update%20webui%20assets). Do this every data and/or plugin update.
 
 ---
 ## Changelog
 
-### fork-7.0.1f
+### ∇
 
-- \[∇\] Added event data: White Day 2026 Stamp Bonus Event
-- \[∇\] Updated Licensed Songs list
-- \[∇+EG\] Added `Omnimix Songs` folder - appears when Omnimix mdb exists
-- \[EG\] Updated Licensed Songs list with Omnimix music IDs
-- \[Misc\] Omnimix handler - allows Omnimix songs to be available in game with this plugin. Run `WebUI Asset Update` to retrieve mdb data from `/data_mods/omnimix/others/music_db.merged.xml`
-- \[WebUI\] Songs List page: added column for Omnimix song data indicator
+- Added new songs to licensed songs list
+- Added `PREMIUM GENERATOR (不知火フレア/Shiranui Flare)` data
+- Added event data: `Shiranui Flare Stamp Event`
+- Updated event data: `∇ Weekly Stamp Bonus` - added 5 stamp sheets
+- Fixed `White Day 2026 Stamp Event` event data
+- Updated `BLASTER GATE` data
+
+### Misc
+
+- Moved `∇ Weekly Stamp Bonus` to one toggle and made to only show one stamp sheet at a time (complete the current sheet for next ones to appear; needs re-toggling in events page to enable)
+- Removed unused `skillanalyzer.js` asset
+- Small update to stamp sheet extend data loading
+- Added missing ids to `NAMEPLATE_BADGE_IGNORE_DISABLE`
 
 ---
 ## Extra notes
 
 #### Important notes for players migrating from EXCEED GEAR to ∇
-- Before logging in to ∇, **it is important to run the WebUI Asset Update** as the plugin needs at least the latest EG music_db to pull difficulty level info from so the plugin could calculate your ∇ VOLFORCE properly, or to as close as it can to your EG VF. In EG, the VF is calculated on the fly when you login, but in ∇ the individual chart VF is now being stored in DB.
+- Before logging in and migrating to ∇, **it is important to upload the latest EXCEED GEAR music_db.xml file and run the WebUI Asset Update** so the data migration feature could retrieve the songs' difficulty levels from the mdb, to calculate your ∇ VOLFORCE properly, or to as close as it can to your EG VF. In EG, the VF is calculated on the fly when you login, but in ∇ the individual chart VF is now being stored in DB.
 - Data import to ∇ will copy your profile, scores, items, etc. from EG. You can continue playing EG using your migrated profile but it will have separate progression/data from ∇.
 - Just a heads up that there is a bug in game version 20251224 that causes charts to not appear in the VOLFORCE POTENTIAL folder.
 - Charts announced to have EX SCORES reset will be reset here as well.

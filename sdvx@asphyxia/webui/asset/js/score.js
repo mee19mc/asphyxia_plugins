@@ -71,9 +71,9 @@ function getGrade(grade) {
         case 4:
             return "A";
         case 5:
-            return "A+";
+            return currentVersion >= 4 ? "A+" : "AA";
         case 6:
-            return "AA";
+            return currentVersion >= 4 ? "AAA" : "AA";
         case 7:
             return "AA+";
         case 8:
@@ -92,11 +92,11 @@ function getMedal(clear, version) {
         case 1:
             return "PLAYED";
         case 2:
-            return "EFFECTIVE CLEAR";
+            return currentVersion >= 4 ? "EFFECTIVE CLEAR" : "CLEAR";
         case 3:
-            return "EXCESSIVE CLEAR";
+            return currentVersion >= 4 ? "EXCESSIVE CLEAR" : "UC";
         case 4:
-            return (version === 6) ? "UC" : "MAXXIVE CLEAR";
+            return currentVersion >= 6 ? ((version === 6) ? "UC" : "MAXXIVE CLEAR") : "PUC";
         case 5:
             return (version === 6) ? "PUC" : "UC";
         case 6:
@@ -235,7 +235,7 @@ $(document).ready(function() {
     currentVersion = (urlParams.has('version') && urlParams.get('version') !== "") ? parseInt(urlParams.get('version')) : profile_data[profile_data.length - 1].version
     currentProfile = profile_data.find(p => p.version === currentVersion)
 
-    for (var p of profile_data) {
+    for (var p of profile_data.sort((a, b) => a.version - b.version)) {
         $('#version_select').append($('<option>', {
             value: p.version,
             text: versionText[p.version],
@@ -250,51 +250,13 @@ $(document).ready(function() {
     });
 
     $.getJSON("static/asset/json/music_db.json", function(json) {
-        const translate_table = {
-              '龕': '€',
-              '釁': '🍄',
-              '驩': 'Ø',
-              '曦': 'à',
-              '齷': 'é',
-              '骭': 'ü',
-              '齶': '♡',
-              '彜': 'ū',
-              '罇': 'ê',
-              '雋': 'Ǜ',
-              '鬻': '♃',
-              '鬥': 'Ã',
-              '鬆': 'Ý',
-              '曩': 'è',
-              '驫': 'ā',
-              '齲': '♥',
-              '騫': 'á',
-              '趁': 'Ǣ',
-              '鬮': '¡',
-              '盥': '⚙︎',
-              '隍': '︎Ü',
-              '頽': 'ä',
-              '餮': 'Ƶ',
-              '黻': '*',
-              '蔕': 'ũ',
-              '闃': 'Ā',
-              '饌': '²',
-              '煢': 'ø',
-              '鑷': 'ゔ',
-              '墸': '͟͟͞ ',
-              '鹹': 'Ĥ',
-              '瀑': 'À',
-              '疉': 'Ö',
-              '鑒': '₩'
-        }
         music_db = json;
         var music_data = [];
-
 
         for (var i in score_data) {
             var temp_data = {};
             temp_data.mid = score_data[i].mid;
             temp_data.songname = getSongName(score_data[i].mid);
-            temp_data.songname = temp_data.songname.replace(/[龕釁驩曦齷骭齶彜罇雋鬻鬥鬆曩驫齲騫趁鬮盥隍頽餮黻蔕闃饌煢鑷墸鹹瀑疉鑒]/g, m => translate_table[m]);
             temp_data.diff = getDifficulty(score_data[i].mid, score_data[i].type);
             temp_data.score = score_data[i].score;
             temp_data.exscore = ((score_data[i].exscore) ? score_data[i].exscore : 0);
@@ -315,7 +277,10 @@ $(document).ready(function() {
                 { data: 'clear', "type": "clear-mark" }
             ],
             columnDefs: [
-
+                {
+                  "targets": [4],
+                  "visible": currentVersion >= 6
+                }
             ],
             responsive: {
                 details: {
